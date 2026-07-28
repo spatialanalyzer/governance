@@ -4,6 +4,30 @@ This register makes incomplete policy visible. An unresolved item is not
 permission to act without judgment; maintainers should use the existing
 consensus process and avoid irreversible commitments when practical.
 
+## Accepted Briosa implementation constraints
+
+The following technical mechanics are accepted Briosa architecture. They
+constrain implementations but do not settle the release and support policies
+listed later in this register.
+
+- Public MP contracts use exact-SpatialAnalyzer-target protobuf packages. One
+  Briosa distribution supports one exact target, and a later target is a
+  complete independently reviewed snapshot; matching shapes do not imply
+  compatibility or permit nearest-version fallback. See
+  [Briosa ADR 0005](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/0005-exact-sa-target-protocols.md).
+- Configured target identity, the SDK engine/type library selected by COM
+  registration, and the connected SpatialAnalyzer application version are
+  distinct facts. A verified mismatch fails closed, while unavailable runtime
+  evidence remains distinguishable from operator attestation. See
+  [Briosa ADR 0017](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/0017-execution-channel-readiness.md)
+  and [briosa#70](https://github.com/spatialanalyzer/briosa/issues/70).
+- Briosa semantic version, exact SpatialAnalyzer target, command-catalog
+  identity, protocol-artifact identity, and language-client package version are
+  independent coordinates. Clients pin and verify a reproducible protocol
+  artifact instead of copying shared semantics. See
+  [Briosa ADR 0020](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/0020-protocol-artifacts-and-client-conformance.md)
+  and [briosa#94](https://github.com/spatialanalyzer/briosa/issues/94).
+
 ## Institutional and legal
 
 - What is the final form of the relationship among the independent project,
@@ -42,14 +66,17 @@ consensus process and avoid irreversible commitments when practical.
 
 ## Releases and compatibility
 
-- What exact version format will express both the targeted SpatialAnalyzer
-  release and Briosa's own semantic version?
+- What release-governance relationship should apply among Briosa semantic
+  versions, command-catalog revisions, protocol artifacts, and independently
+  versioned language clients?
 - Which SpatialAnalyzer releases will initially be supported?
 - How long will each Briosa/SpatialAnalyzer pairing receive fixes?
-- Will server and language-client releases be coordinated or versioned
-  independently?
+- Which server and language-client releases should be coordinated, despite
+  retaining independent version identities?
 - What release cadence, support window, and long-term-support policy will
   apply?
+- What deprecation and migration policy should apply when support for an exact
+  SpatialAnalyzer target ends?
 - What automated conformance testing is required before claiming
   compatibility?
 

@@ -10,23 +10,39 @@ The following technical mechanics are accepted Briosa architecture. They
 constrain implementations but do not settle the release and support policies
 listed later in this register.
 
-- Public MP contracts use exact-SpatialAnalyzer-target protobuf packages. One
-  Briosa distribution supports one exact target, and a later target is a
-  complete independently reviewed snapshot; matching shapes do not imply
-  compatibility or permit nearest-version fallback. See
-  [Briosa ADR 0005](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/0005-exact-sa-target-protocols.md).
-- Configured target identity, the SDK engine/type library selected by COM
-  registration, and the connected SpatialAnalyzer application version are
-  distinct facts. A verified mismatch fails closed, while unavailable runtime
-  evidence remains distinguishable from operator attestation. See
-  [Briosa ADR 0017](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/0017-execution-channel-readiness.md)
+- Public MP contracts use the protobuf package `briosa` for every exact
+  SpatialAnalyzer target, with release-neutral service, message, and field
+  names. Exact SpatialAnalyzer releases instead identify products, artifacts,
+  packages, and runtime compatibility gates. Each target is a complete,
+  isolated product validated independently against its exact release, and one
+  running server is locked to one release; matching public names do not imply
+  wire or behavioral compatibility or permit nearest-version fallback. See
+  [Briosa operation and protocol model](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/operation-and-protocol-model.md)
+  and
+  [exact-target product model](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/exact-target-product-model.md).
+- The exact SpatialAnalyzer release configured by the built target, the
+  activated SDK engine/type library version, and the connected SpatialAnalyzer
+  application version are distinct claims. Runtime evidence takes precedence;
+  when it is unavailable, an operator may attest a claim with an explicit
+  version and a non-sensitive evidence reference, but attestation cannot mask
+  a runtime mismatch. Missing or mismatched identity fails closed. MP
+  admission also requires a bounded execution-channel probe for the current
+  worker generation; a successful `ConnectEx` alone is not readiness. An
+  authoritative connected-application version probe remains provisional
+  pending vendor guidance. See
+  [Briosa runtime boundary and lifecycle](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/runtime-boundary-and-lifecycle.md)
   and [briosa#70](https://github.com/spatialanalyzer/briosa/issues/70).
-- Briosa semantic version, exact SpatialAnalyzer target, command-catalog
-  identity, protocol-artifact identity, and language-client package version are
-  independent coordinates. Clients pin and verify a reproducible protocol
-  artifact instead of copying shared semantics. See
-  [Briosa ADR 0020](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/0020-protocol-artifacts-and-client-conformance.md)
-  and [briosa#94](https://github.com/spatialanalyzer/briosa/issues/94).
+- Briosa semantic version, exact SpatialAnalyzer target, Windows runtime
+  architecture, behavioral compatibility major and revision, protocol artifact
+  snapshot, and language-client package version are independent coordinates.
+  First-party clients are published per exact target and lock one reviewed
+  protocol artifact for reproducible generation; contract-aware clients then
+  validate the selected server's exact target and behavioral compatibility, so
+  a compatible server need not match that artifact's release. Shared semantics
+  stay in Briosa; clients do not redefine them. See
+  [Briosa exact-target product model](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/exact-target-product-model.md)
+  and
+  [client behavioral contract](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/client-library-behavioral-contract.md).
 
 ## Institutional and legal
 

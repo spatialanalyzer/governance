@@ -83,8 +83,8 @@ listed later in this register.
 ## Releases and compatibility
 
 - What release-governance relationship should apply among Briosa semantic
-  versions, command-catalog revisions, protocol artifacts, and independently
-  versioned language clients?
+  versions, behavioral compatibility majors and revisions, protocol artifacts,
+  and independently versioned language clients?
 - Which SpatialAnalyzer releases will initially be supported?
 - How long will each Briosa/SpatialAnalyzer pairing receive fixes?
 - Which server and language-client releases should be coordinated, despite

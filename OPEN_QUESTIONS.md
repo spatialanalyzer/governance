@@ -43,6 +43,21 @@ listed later in this register.
   [Briosa exact-target product model](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/exact-target-product-model.md)
   and
   [client behavioral contract](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/client-library-behavioral-contract.md).
+- The server release gate runs published contract-aware first-party clients
+  only for the server's current behavioral compatibility major. When a server
+  release changes the compatibility major, the gate also keeps the previous
+  major's published clients as negative checks that must reject the
+  incompatible server before launch; those previous-major clients may be
+  retired from the gate once the new major has shipped. Clients for older
+  majors are retired from the live gate, though their historical compatibility
+  evidence remains recorded and verifiable. Relying on a client for an older
+  compatibility major therefore requires keeping a compatible older server
+  installation; this window defines only what the automated fake-SDK release
+  gate tests and does not establish a product support window, bug-fix
+  commitment, release cadence, or long-term-support policy. See
+  [Briosa installation selection and behavioral compatibility](https://github.com/spatialanalyzer/briosa/blob/main/docs/architecture/installation-selection-and-compatibility.md#evidence-and-migration),
+  [compatibility evidence](https://github.com/spatialanalyzer/briosa/blob/main/compatibility/README.md),
+  and [briosa#250](https://github.com/spatialanalyzer/briosa/issues/250).
 
 ## Institutional and legal
 
@@ -89,8 +104,8 @@ listed later in this register.
 - How long will each Briosa/SpatialAnalyzer pairing receive fixes?
 - Which server and language-client releases should be coordinated, despite
   retaining independent version identities?
-- What release cadence, support window, and long-term-support policy will
-  apply?
+- What release cadence, product support window beyond the server release
+  gate's retained-client window, and long-term-support policy will apply?
 - What deprecation and migration policy should apply when support for an exact
   SpatialAnalyzer target ends?
 - What automated conformance testing is required before claiming
